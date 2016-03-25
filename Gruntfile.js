@@ -3,9 +3,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            files: ['Gruntfile.js', 'app.js', 'settings.js', 'public/js/main.js'],
+            files: ['Gruntfile.js', 'app.js', 'settings.js', 'public/js/main.js', 'app/**/*.js'],
             options: {
-                globals: {}
+                jshintrc: true
             }
         },
         less: {
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                 livereload: true
             },
             js: {
-                files: ['<%= jshint.files %>'],
+                files: ['<%= jshint.files %>', '.jshintrc'],
                 tasks: ['jshint']
             },
             less: {

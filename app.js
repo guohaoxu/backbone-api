@@ -2,47 +2,57 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    expressSession = require('express-session'),
+    session = require('express-session'),
     methodOverride = require('method-override'),
     compression = require('compression'),
     MongoClient = require('mongodb').MongoClient,
     url = 'mongodb://localhost:27017/backbone-api',
     errorHandler = require('errorHandler'),
     logger = require('morgan'),
+    favicon = require('serve-favicon'),
+    routes = require('./app/routes/index'),
+    settings = require('./settings'),
     app = express();
 
-app.use(bodyParser.urlencoded())
+app.set('port', process.env.PORT || 3000)
+app.set('views', path.join(__dirname, 'app/views'))
+app.set('view engine', 'ejs')
+
+app.use(methodOverride())
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({
+    secret: settings.cookieSecret,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    },
+    resave: false,
+    saveUninitialized: true
+}))
 app.use(compression())
+app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')))
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(logger('dev'))
-app.use(express.static('./public'))
+if ('development' === app.get('env')) {
+    app.use(logger('dev'))
+    app.use(errorHandler())
+}
 
+//Pages routes
+app.get('/', routes.index)
+app.get('/login', routes.login)
 
+// REST API routes
+//app.all('/api', routes.authorize)
+//app.get('/api/articles', routes.articleList)
 
-
-
-
-
-app.get('/', function (req, res) {
-    res.sendFile('/index.html')
+app.all('*', function (req, res) {
+    res.send(404)
 })
 
-if (process.env.NODE_ENV === 'development') {
-//    app.use(errorHandler())
-    app.use(errorHandler({
-        log: errorNotification
-    }))
-}
-function errorNotification(err, str, req) {
-    var title = 'Error in ' + req.method + ' ' + req.url
-    notifier.notify({
-        title: title,
-        message: str
-    })
-}
-
-
-app.listen(3000, function () {
-    console.log('Server is running!')
+app.listen(app.get('port'), function () {
+    console.log('Server is running on ' + app.set('port'))
 })
