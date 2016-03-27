@@ -42,8 +42,7 @@ if ('development' === app.get('env')) {
 }
 
 //Pages routes
-app.get('/', routes.index)
-app.get('/login', routes.login)
+//app.get('/', routes.index)
 
 // REST API routes
 //app.all('/api', routes.authorize)
