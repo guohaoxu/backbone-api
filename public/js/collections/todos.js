@@ -14,6 +14,14 @@ var app = app || {};
                 return this.where({
                     completed: false
                 });
+            },
+            initialize: function () {
+                this.on('add', function () {
+                    //console.log("app.todos is on add..");
+                });
+                this.on('reset', function () {
+                    //console.log('app.todos is on reset.')
+                });
             }
         });
     app.todos = new Todos();
