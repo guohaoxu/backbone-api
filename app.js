@@ -46,10 +46,10 @@ if ('development' === app.get('env')) {
 
 // REST API routes
 //app.all('/api', routes.authorize)
-//app.get('/api/articles', routes.articleList)
+app.get('/api/articles', routes.articleList)
 
 app.all('*', function (req, res) {
-    res.send(404)
+    res.sendfile(path.join(__dirname + '/public/index.html'))
 })
 
 app.listen(app.get('port'), function () {
