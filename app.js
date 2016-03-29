@@ -46,9 +46,17 @@ if ('development' === app.get('env')) {
 // REST API routes
 //app.all('/api', routes.authorize)
 
+app.get('/', function (req, res) {
+    res.end('<a href="/todo">todo</a>');
+})
+
 app.get('/todo', function (req, res) {
     res.sendfile(path.join(__dirname + '/public/todo/index.html'))
-}
+})
+
+app.all('*', function (req, res) {
+    res.end('404')
+})
 
 app.listen(app.get('port'), function () {
     console.log('Server is running on ' + app.set('port'))
