@@ -5,12 +5,12 @@ var express = require('express'),
     session = require('express-session'),
     methodOverride = require('method-override'),
     compression = require('compression'),
-    MongoClient = require('mongodb').MongoClient,
-    url = 'mongodb://localhost:27017/backbone-api',
     errorHandler = require('errorHandler'),
     logger = require('morgan'),
     favicon = require('serve-favicon'),
     settings = require('./settings'),
+    mongoose = require('mongoose'),
+    url = 'mongodb://localhost:27017/backbone-api',
     app = express();
 
 app.set('port', process.env.PORT || 3000)
