@@ -10,7 +10,6 @@ var express = require('express'),
     errorHandler = require('errorHandler'),
     logger = require('morgan'),
     favicon = require('serve-favicon'),
-    routes = require('./app/routes/index'),
     settings = require('./settings'),
     app = express();
 
@@ -33,7 +32,7 @@ app.use(session({
     saveUninitialized: true
 }))
 app.use(compression())
-app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')))
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
 
 if ('development' === app.get('env')) {
@@ -47,9 +46,9 @@ if ('development' === app.get('env')) {
 // REST API routes
 //app.all('/api', routes.authorize)
 
-app.all('*', function (req, res) {
-    res.sendfile(path.join(__dirname + '/public/index.html'))
-})
+app.get('/todo', function (req, res) {
+    res.sendfile(path.join(__dirname + '/public/todo/index.html'))
+}
 
 app.listen(app.get('port'), function () {
     console.log('Server is running on ' + app.set('port'))
