@@ -46,7 +46,6 @@ if ('development' === app.get('env')) {
 
 // REST API routes
 //app.all('/api', routes.authorize)
-app.get('/api/articles', routes.articleList)
 
 app.all('*', function (req, res) {
     res.sendfile(path.join(__dirname + '/public/index.html'))
