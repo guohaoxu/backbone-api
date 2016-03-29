@@ -46,10 +46,6 @@ if ('development' === app.get('env')) {
 // REST API routes
 //app.all('/api', routes.authorize)
 
-app.get('/', function (req, res) {
-    res.end('<a href="/todo">todo</a>');
-})
-
 app.get('/todo', function (req, res) {
     res.sendfile(path.join(__dirname + '/public/todo/index.html'))
 })

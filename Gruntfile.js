@@ -9,9 +9,14 @@ module.exports = function (grunt) {
             }
         },
         less: {
-            dev: {
+            todo: {
                 files: {
                     'public/todo/css/main.css': 'public/todo/css/main.less'
+                }
+            },
+            book: {
+                files: {
+                    'public/book/css/main.css': 'public/book/css/main.less'
                 }
             }
         },
