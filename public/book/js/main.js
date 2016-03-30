@@ -35,5 +35,5 @@ var app = app || {};
         }
     ];
 
-    new app.LibraryView( books );
+    new app.LibraryView(books);
 }());

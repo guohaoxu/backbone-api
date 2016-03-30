@@ -46,9 +46,10 @@ if ('development' === app.get('env')) {
 // RESTful API routes
 //app.all('/api', routes.authorize)
 
-app.get('/todo', function (req, res) {
-    res.sendfile(path.join(__dirname + '/public/todo/index.html'))
-})
+//app.get('/todo', function (req, res) {
+//    res.sendfile(path.join(__dirname + '/public/todo/index.html'))
+//    console.log('td..');
+//})
 
 app.all('*', function (req, res) {
     res.end('404')
