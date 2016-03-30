@@ -43,7 +43,7 @@ if ('development' === app.get('env')) {
 //Pages routes
 //app.get('/', routes.index)
 
-// REST API routes
+// RESTful API routes
 //app.all('/api', routes.authorize)
 
 app.get('/todo', function (req, res) {
