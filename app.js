@@ -114,7 +114,7 @@ app.delete('/book/api/books/:id', function (req, res) {
             if (err) {
                 return console.log('Book removed!')
             }
-            res.send('1')
+            res.send('')
         })
     })
 })
