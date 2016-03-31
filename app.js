@@ -15,10 +15,15 @@ var express = require('express'),
     app = express()
 
 mongoose.connect(url)
+
+var Keywords = new mongoose.Schema({
+    keyword: String
+})
 var Book = new mongoose.Schema({
     title: String,
     author: String,
-    releaseDate: Date
+    releaseDate: Date,
+    keywords: [ Keywords ]
 })
 var BookModel = mongoose.model('Book', Book)
 
@@ -77,7 +82,8 @@ app.post('/book/api/books', function (req, res) {
         title: req.body.title,
         author: req.body.author,
         //releaseDate: req.body.releaseDate
-        releaseDate: new Date()
+        releaseDate: new Date(),
+        keywords: req.body.keywords
     })
     return book.save(function (err) {
         if (err) {
@@ -99,7 +105,9 @@ app.put('/book/api/books/:id', function (req, res) {
     return BookModel.findById(req.params.id, function (err, book) {
         book.title = req.body.title
         book.author = req.body.author
-        book.releaseDate = req.body.releaseDate
+//        book.releaseDate = req.body.releaseDate
+        book.releaseDate = new Date()
+        book.keywords = req.body.keywords
         return book.save(function (err) {
             if (err) {
                 return console.log(err)

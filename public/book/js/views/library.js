@@ -7,10 +7,15 @@ var app = app || {};
         events: {
             'click #add': 'addBook'
         },
-        initialize: function (initialBooks) {
-            this.collection = new app.Library(initialBooks);
-            this.listenTo(this.collection, 'add', this.renderBook);
+        initialize: function () {
+            this.collection = new app.Library();
+            this.collection.fetch({
+                reset: true
+            });
             this.render();
+
+            this.listenTo(this.collection, 'add', this.renderBook);
+            this.listenTo(this.collection, 'reset', this.render);
         },
         render: function () {
             this.collection.each(function (item) {
@@ -31,7 +36,7 @@ var app = app || {};
                     formData[el.id] = $(el).val();
                 }
             });
-            this.collection.add(new app.Book(formData));
+            this.collection.create(formData);
         }
     });
 }());
