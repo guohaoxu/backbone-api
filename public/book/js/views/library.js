@@ -27,7 +27,7 @@ var app = app || {};
             e.preventDefault();
             var formData = {};
             $('#addBook div').children('input').each(function (i, el) {
-                if ($(el).val() != '') {
+                if ($(el).val() !== '') {
                     formData[el.id] = $(el).val();
                 }
             });

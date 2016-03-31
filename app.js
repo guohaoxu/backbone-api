@@ -1,5 +1,6 @@
 var express = require('express'),
     path = require('path'),
+    util = require('util'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
@@ -10,8 +11,16 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     settings = require('./settings'),
     mongoose = require('mongoose'),
-    url = 'mongodb://localhost:27017/backbone-api',
-    app = express();
+    url = 'mongodb://localhost:27017/backbone-book',
+    app = express()
+
+mongoose.connect(url)
+var Book = new mongoose.Schema({
+    title: String,
+    author: String,
+    releaseDate: Date
+})
+var BookModel = mongoose.model('Book', Book)
 
 app.set('port', process.env.PORT || 3000)
 app.set('views', path.join(__dirname, 'app/views'))
@@ -50,6 +59,66 @@ if ('development' === app.get('env')) {
 //    res.sendfile(path.join(__dirname + '/public/todo/index.html'))
 //    console.log('td..');
 //})
+
+app.get('/book/api', function (req, res) {
+    res.send('Library API is running.')
+})
+
+app.get('/book/api/books', function (req, res) {
+    return BookModel.find(function (err, books) {
+        if (err) {
+            return console.log(err)
+        }
+        return res.send(books)
+    })
+})
+app.post('/book/api/books', function (req, res) {
+    var book = new BookModel({
+        title: req.body.title,
+        author: req.body.author,
+        //releaseDate: req.body.releaseDate
+        releaseDate: new Date()
+    })
+    return book.save(function (err) {
+        if (err) {
+            return console.log(err)
+        }
+        console.log('created!')
+        res.send(book)
+    })
+})
+app.get('/book/api/books/:id', function (req, res) {
+    return BookModel.findById(req.params.id, function (err, book) {
+        if (err) {
+            return console.log(err)
+        }
+        res.send(book)
+    })
+})
+app.put('/book/api/books/:id', function (req, res) {
+    return BookModel.findById(req.params.id, function (err, book) {
+        book.title = req.body.title
+        book.author = req.body.author
+        book.releaseDate = req.body.releaseDate
+        return book.save(function (err) {
+            if (err) {
+                return console.log(err)
+            }
+            res.send(book)
+        })
+    })
+})
+app.delete('/book/api/books/:id', function (req, res) {
+    BookModel.findById(req.params.id, function (err, book) {
+        book.remove(function (err) {
+            if (err) {
+                return console.log('Book removed!')
+            }
+            res.send('1')
+        })
+    })
+})
+
 
 app.all('*', function (req, res) {
     res.end('404')
