@@ -52,7 +52,6 @@ if ('development' === app.get('env')) {
 //Pages routes
 //app.get('/', routes.index)
 
-// RESTful API routes
 //app.all('/api', routes.authorize)
 
 //app.get('/todo', function (req, res) {
@@ -60,6 +59,7 @@ if ('development' === app.get('env')) {
 //    console.log('td..');
 //})
 
+// RESTful API routes
 app.get('/book/api', function (req, res) {
     res.send('Library API is running.')
 })
