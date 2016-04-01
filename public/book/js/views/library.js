@@ -37,6 +37,7 @@ var app = app || {};
                 }
             });
             this.collection.create(formData);
+
         }
     });
 }());
