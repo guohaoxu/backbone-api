@@ -63,11 +63,11 @@ app.get('/book/api', function (req, res) {
 })
 
 app.get('/book/api/books', function (req, res) {
-    return BookModel.find(function (err, books) {
+    BookModel.find(function (err, books) {
         if (err) {
             return console.log(err)
         }
-        return res.send(books)
+        res.send(books)
     })
 })
 app.post('/book/api/books', function (req, res) {
@@ -75,19 +75,17 @@ app.post('/book/api/books', function (req, res) {
         title: req.body.title,
         author: req.body.author,
         releaseDate: req.body.releaseDate,
-        //releaseDate: new Date(),
         keywords: req.body.keywords
     })
-    return book.save(function (err) {
+    book.save(function (err) {
         if (err) {
             return console.log(err)
         }
-        console.log('created!')
         res.send(book)
     })
 })
 app.get('/book/api/books/:id', function (req, res) {
-    return BookModel.findById(req.params.id, function (err, book) {
+    BookModel.findById(req.params.id, function (err, book) {
         if (err) {
             return console.log(err)
         }
@@ -95,13 +93,12 @@ app.get('/book/api/books/:id', function (req, res) {
     })
 })
 app.put('/book/api/books/:id', function (req, res) {
-    return BookModel.findById(req.params.id, function (err, book) {
+    BookModel.findById(req.params.id, function (err, book) {
         book.title = req.body.title
         book.author = req.body.author
         book.releaseDate = req.body.releaseDate
-        //book.releaseDate = new Date()
         book.keywords = req.body.keywords
-        return book.save(function (err) {
+        book.save(function (err) {
             if (err) {
                 return console.log(err)
             }
