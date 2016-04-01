@@ -57,13 +57,6 @@ if ('development' === app.get('env')) {
 //Pages routes
 //app.get('/', routes.index)
 
-//app.all('/api', routes.authorize)
-
-//app.get('/todo', function (req, res) {
-//    res.sendfile(path.join(__dirname + '/public/todo/index.html'))
-//    console.log('td..');
-//})
-
 // RESTful API routes
 app.get('/book/api', function (req, res) {
     res.send('Library API is running.')
