@@ -23,7 +23,7 @@ var Book = new mongoose.Schema({
     title: String,
     author: String,
     releaseDate: Date,
-    keywords: [ Keywords ]
+    keywords: String
 })
 var BookModel = mongoose.model('Book', Book)
 
@@ -81,8 +81,8 @@ app.post('/book/api/books', function (req, res) {
     var book = new BookModel({
         title: req.body.title,
         author: req.body.author,
-        //releaseDate: req.body.releaseDate
-        releaseDate: new Date(),
+        releaseDate: req.body.releaseDate,
+        //releaseDate: new Date(),
         keywords: req.body.keywords
     })
     return book.save(function (err) {
@@ -105,8 +105,8 @@ app.put('/book/api/books/:id', function (req, res) {
     return BookModel.findById(req.params.id, function (err, book) {
         book.title = req.body.title
         book.author = req.body.author
-//        book.releaseDate = req.body.releaseDate
-        book.releaseDate = new Date()
+        book.releaseDate = req.body.releaseDate
+        //book.releaseDate = new Date()
         book.keywords = req.body.keywords
         return book.save(function (err) {
             if (err) {

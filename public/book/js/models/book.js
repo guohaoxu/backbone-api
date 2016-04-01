@@ -10,9 +10,6 @@ var app = app || {};
             releaseDate: 'Unknown',
             keywords: 'None'
         },
-        parse: function (response) {
-            response.id = response._id;
-            return response;
-        }
+        idAttribute: '_id'
     })
 }());

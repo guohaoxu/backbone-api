@@ -3,7 +3,7 @@ var app = app || {};
 (function () {
     'use strict';
     app.LibraryView = Backbone.View.extend({
-        el: '.books-list',
+        el: '#books',
         events: {
             'click #add': 'addBook'
         },
@@ -37,7 +37,6 @@ var app = app || {};
                 }
             });
             this.collection.create(formData);
-
         }
     });
 }());

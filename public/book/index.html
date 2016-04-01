@@ -35,17 +35,11 @@
                         <input class="form-control" id="keywords" type="text" name="keywords">
                     </div>
                     <div class="form-group">
-                        <label for="coverImage">CoverImage: </label>
-<!--                        <input id="coverImage" type="file" name="file">-->
-                    </div>
-                    <div class="form-group">
                         <button type="submit" class="btn btn-primary" id="add">添加</button>
                     </div>
                 </form>
             </div>
         </div>
-
-        <div class="row books-list"></div>
 
         <script type="text/template" id="bookTemplate">
             <img src="<%= coverImage %>" width="160">
@@ -59,7 +53,7 @@
                     <% }); %>
                 </li>
             </ul>
-            <button class="btn btn-default">Delete</button>
+            <button class="btn btn-default delete">Delete</button>
         </script>
 
         <script src="/lib/jquery-1.12.1.min.js"></script>
