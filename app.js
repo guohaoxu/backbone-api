@@ -55,7 +55,9 @@ if ('development' === app.get('env')) {
 }
 
 //Pages routes
-//app.get('/', routes.index)
+//app.get('/', function (req, res) {
+    //
+//})
 
 // RESTful API routes
 app.get('/book/api', function (req, res) {
