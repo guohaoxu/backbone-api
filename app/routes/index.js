@@ -1,9 +1,7 @@
 var settings = require('../../settings'),
     mongoose = require('mongoose')
 mongoose.connect(settings.dbUrl)
-var Keywords = new mongoose.Schema({
-    keyword: String
-})
+
 var Book = new mongoose.Schema({
     title: String,
     author: String,
@@ -67,7 +65,7 @@ module.exports = function (app) {
             })
         })
     })
-    app.delete('/book/api/books/:id', function (req, res) {
+    app.del('/book/api/books/:id', function (req, res) {
         BookModel.findById(req.params.id, function (err, book) {
             book.remove(function (err) {
                 if (err) {
@@ -77,7 +75,6 @@ module.exports = function (app) {
             })
         })
     })
-
 
     app.all('*', function (req, res) {
         res.end('404')
